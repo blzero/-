@@ -1,0 +1,78 @@
+<!--component/weatherComponent/weatherComponent.wxml-->
+<template name="weatherlist">
+  <view class='weather-detail'>
+    <!-- <text>{{days}} </text> -->
+    <text>{{week}}</text>
+    <text>{{temperature}}</text>
+    <text>{{weather}}</text>
+    <!-- <text>{{winp}}</text>  -->
+  </view>
+</template>
+
+<!--选择 日 的数据  -->
+<template name="selecteddata">
+  <view class='selected-detail'>
+    <view class='one-part'>
+      {{citynm}}
+    </view>
+
+    <view class='one-part'>
+      <text>{{days}} </text>
+      <text>{{week}}</text>
+    </view>
+
+    <view class='one-part'>
+      <text>{{temperature}}</text>
+      <text>{{weather}}</text>
+    </view>
+
+    <view class='one-part'>
+      <text>{{wind}}</text>
+      <text>{{winp}}</text>
+    </view>
+  </view>
+</template>
+
+<!--搜索 数据 item  -->
+<template name='searechdata'>
+  <view class='search-detail' data-index='{{index}}' bindtap='searchItemTap'>
+    {{area_2}} {{area_3}} {{area_1}}
+  </view>
+</template>
+
+<view class='weather-days'>
+  <view class='search-input'>
+    <input placeholder='请输入城市地区的名称' bindinput='searchCity' value='{{searchWord}}'></input>
+  </view>
+
+  <!--今天 日期  -->
+  <view class='today-content' bindtap='showHide'>
+    <text class='t-month'>{{todayDate.month}}月</text>
+    <text class='t-date'>{{todayDate.date}}日</text>
+    <text class='t-week'>星期{{todayDate.week}}</text>
+  </view>
+
+  <!--5-7天 天气列表  -->
+  <swiper class='days-content' current='0' vertical='{{true}}' display-multiple-items='{{numbers}}' animation="{{animationData}}">
+    <swiper-item wx:for="{{weatherData}}" wx:key="{{index}}" class='["weather-oneDay",{{selected==index? "selected":""}}]' data-index='{{index}}' bindtap='currentItemTap'>
+      <template is="weatherlist" data="{{...item}}" />
+
+    </swiper-item>
+  </swiper>
+
+  <!--选择 日 天气  -->
+  <view class='selected-content'>
+    <image src="{{typePath}}" class='type-icon'></image>
+    <template is='selecteddata' data='{{...selectedData}}'></template>
+  </view>
+
+
+  <!--搜索列表  -->
+  <view wx:if='{{searchResult.length>0}}' class='search-result'>
+    <template is='searechdata' wx:for='{{searchResult}}' wx:key='{{index}}' data='{{...item,index:index}}'>
+    </template>
+  </view>
+
+
+
+</view>

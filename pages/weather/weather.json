@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "weather": "../component/weatherComponent/weatherComponent"
+  }
+}

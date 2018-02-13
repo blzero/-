@@ -1,0 +1,5 @@
+<!--pages/weather.wxml-->
+<view class=' weather-content'>
+     <weather inner-text="Some text" bindsearch='search' searchResult='{{searchData}}' ></weather>
+
+</view>

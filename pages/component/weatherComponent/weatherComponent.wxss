@@ -1,0 +1,113 @@
+/* component/weatherComponent/weatherComponent.wxss */
+
+.weather-days {
+  display: flex;
+  flex-direction: column;
+  padding: 0 30rpx;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*搜索 input  */
+.search-input{
+    font-size: 16px;
+    color: #fff;
+    padding: 8rpx 0;
+    border-bottom: 1rpx solid lightsalmon;
+}
+
+/*今天 日期 */
+
+.today-content {
+  text-align: center;
+  text-decoration: underline;
+  padding: 10rpx;
+  font-size: 14px;
+  color: #f74;
+}
+
+/*天气 列表  */
+
+.days-content {
+  width: 200rpx;
+  height: 80%;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  box-sizing: border-box;
+}
+/*天气 列表 内容 */
+.weather-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/*每天  item*/
+
+.weather-oneDay {
+  padding: 15rpx 30rpx;
+  color: lightgray;
+  font-size: 12px;
+  box-sizing: border-box;
+  transition:  all 0.3s ease;
+}
+
+/*选中 天  */
+
+.selected {
+  /* background: purple; */
+  color: lightcoral;
+  transition:  all 0.3s ease;
+}
+
+.selected-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15rpx 0;
+}
+/*  */
+.type-icon{
+  width: 120rpx;
+  height: 120rpx;
+  padding: 15rpx;
+  animation: tt 8s ease infinite;
+}
+@keyframes tt{
+  0%{transform: scale(1,1) ;}
+  50%{transform: scale(1.2,1.2) ;}
+  100%{transform: scale(1,1) ;}
+}
+
+/*  */
+.selected-detail{
+  display: flex;
+  flex-direction: column;
+  color: lightcoral;
+  font-size: 16px;
+  text-align: right;
+}
+.one-part{
+  display: flex;
+  flex-direction: column;
+  padding: 15rpx 0;
+}
+
+/*搜索结果  */
+.search-result{
+  position: fixed;
+  top: 10%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: #fff;
+}
+.search-detail{
+  display: flex;
+  padding: 15rpx 30rpx;
+  border-bottom: 1rpx solid #ccc;
+}
