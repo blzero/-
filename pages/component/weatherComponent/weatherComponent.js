@@ -17,6 +17,10 @@ Component({
     },
     searchResult: {
       type: Array,
+    },
+    isAddCity:{
+      type:Boolean,
+      value:false,
     }
   },
 

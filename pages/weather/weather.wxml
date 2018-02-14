@@ -3,9 +3,12 @@
 
     <swiper class='weather-days'>
       <swiper-item>
-     <weather inner-text="Some text" bindsearch='search' searchResult='{{searchData}}' ></weather>
+      <weather isAddCity='{{}}' inner-text="Some text" bindsearch='search' searchResult='{{searchData}}' ></weather>
       
       </swiper-item>
     
     </swiper>
+
+    <image class='add-city' data-add='true' bindtap='addCity' src='../../assets/weatherImages/add.png'></image>
+
 </scroll-view>

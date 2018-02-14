@@ -13,3 +13,12 @@
   width: 100%;
   height: 100%;
 }
+
+/*  */
+.add-city{
+  position: fixed;
+  right: 15rpx;
+  bottom: 15rpx;
+  width: 60rpx;
+  height: 60rpx;
+}

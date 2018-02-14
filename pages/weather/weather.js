@@ -9,6 +9,7 @@ Page({
    */
   data: {
     searchData:[],
+    isAddCity:false,
   },
   search:function(e){
 
@@ -17,7 +18,13 @@ Page({
       searchData:data,
     });
   },
+  addCity:function(e){
 
+    this.setData({
+      isAddCity:true,
+    });
+    console.log(e);
+  },
   /**
    * 生命周期函数--监听页面加载
    */

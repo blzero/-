@@ -47,7 +47,7 @@
 
 <view class='weather-days'>
   <view class='search-input'>
-    <input placeholder='请输入城市地区的名称' bindinput='searchCity' value='{{searchWord}}'></input>
+    <input placeholder='请输入城市地区的名称' bindinput='searchCity' value='{{searchWord}}' focus='{{isAddCity}}'></input>
   </view>
 
   <!--今天 日期  -->
