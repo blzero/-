@@ -1,4 +1,5 @@
 /* pages/weather.wxss */
+/*#2F4159  */
 .weather-content{
  width: 100vw;
  height: 100vh;
@@ -6,4 +7,9 @@
  top: 0;
  left: 0;
  background: url('http://pic.qiantucdn.com/58pic/20/05/86/58PIC5I58PICdYp_1024.jpg') 0 0/cover no-repeat;
+}
+
+.weather-days{
+  width: 100%;
+  height: 100%;
 }

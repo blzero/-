@@ -2,5 +2,7 @@
   "navigationBarTitleText": "",
   "usingComponents": {
     "weather": "../component/weatherComponent/weatherComponent"
-  }
+  },
+    "navigationBarBackgroundColor": "#2F4159",
+    "navigationBarTextStyle":"white"
 }

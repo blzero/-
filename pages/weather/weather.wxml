@@ -1,5 +1,11 @@
 <!--pages/weather.wxml-->
-<view class=' weather-content'>
-     <weather inner-text="Some text" bindsearch='search' searchResult='{{searchData}}' ></weather>
+<scroll-view scroll-y class=' weather-content'>
 
-</view>
+    <swiper class='weather-days'>
+      <swiper-item>
+     <weather inner-text="Some text" bindsearch='search' searchResult='{{searchData}}' ></weather>
+      
+      </swiper-item>
+    
+    </swiper>
+</scroll-view>

@@ -1,14 +1,11 @@
 // component/weatherComponent/weatherComponent.js
 
-const { getWeather57d, getWeatherPM25, getWeatherLifeindex } = require('../../../utils/getWeather.js');
+const { getWeather57d, getWeatherToday, getWeatherPM25, getWeatherLifeindex } = require('../../../utils/getWeather.js');
 const serarchCity = require('../../../utils/searchCity.js');
 
 const placeName = require('../../../utils/getLocationName.js');
 const typeIcon = require('../../../utils/weatherType.js');
 
-
-
-var temp = [{ "weaid": "40", "days": "2018-02-13", "week": "星期二", "cityno": "pudongxinqu", "citynm": "浦东新区", "cityid": "101020600", "temperature": "11℃/0℃", "humidity": "0%/0%", "weather": "晴转多云", "weather_icon": "http://api.k780.com/upload/weather/d/0.gif", "weather_icon1": "http://api.k780.com/upload/weather/n/1.gif", "wind": "西南风", "winp": "3-4级", "temp_high": "11", "temp_low": "0", "humi_high": "0", "humi_low": "0", "weatid": "1", "weatid1": "2", "windid": "16", "winpid": "14" }, { "weaid": "40", "days": "2018-02-14", "week": "星期三", "cityno": "pudongxinqu", "citynm": "浦东新区", "cityid": "101020600", "temperature": "18℃/8℃", "humidity": "0%/0%", "weather": "多云转阴", "weather_icon": "http://api.k780.com/upload/weather/d/1.gif", "weather_icon1": "http://api.k780.com/upload/weather/n/2.gif", "wind": "西南风转东北风", "winp": "3-4级转4-5级", "temp_high": "18", "temp_low": "8", "humi_high": "0", "humi_low": "0", "weatid": "2", "weatid1": "3", "windid": "79", "winpid": "37" }, { "weaid": "40", "days": "2018-02-15", "week": "星期四", "cityno": "pudongxinqu", "citynm": "浦东新区", "cityid": "101020600", "temperature": "10℃/5℃", "humidity": "0%/0%", "weather": "小雨", "weather_icon": "http://api.k780.com/upload/weather/d/7.gif", "weather_icon1": "http://api.k780.com/upload/weather/n/7.gif", "wind": "东北风", "winp": "4-5级转3-4级", "temp_high": "10", "temp_low": "5", "humi_high": "0", "humi_low": "0", "weatid": "8", "weatid1": "8", "windid": "13", "winpid": "54" }, { "weaid": "40", "days": "2018-02-16", "week": "星期五", "cityno": "pudongxinqu", "citynm": "浦东新区", "cityid": "101020600", "temperature": "9℃/6℃", "humidity": "0%/0%", "weather": "多云转晴", "weather_icon": "http://api.k780.com/upload/weather/d/1.gif", "weather_icon1": "http://api.k780.com/upload/weather/n/0.gif", "wind": "北风转东风", "winp": "<3级", "temp_high": "9", "temp_low": "6", "humi_high": "0", "humi_low": "0", "weatid": "2", "weatid1": "1", "windid": "83", "winpid": "395" }, { "weaid": "40", "days": "2018-02-17", "week": "星期六", "cityno": "pudongxinqu", "citynm": "浦东新区", "cityid": "101020600", "temperature": "12℃/7℃", "humidity": "0%/0%", "weather": "多云转小雨", "weather_icon": "http://api.k780.com/upload/weather/d/1.gif", "weather_icon1": "http://api.k780.com/upload/weather/n/7.gif", "wind": "东南风", "winp": "3-4级转<3级", "temp_high": "12", "temp_low": "7", "humi_high": "0", "humi_low": "0", "weatid": "2", "weatid1": "8", "windid": "12", "winpid": "402" }, { "weaid": "40", "days": "2018-02-18", "week": "星期日", "cityno": "pudongxinqu", "citynm": "浦东新区", "cityid": "101020600", "temperature": "9℃/4℃", "humidity": "0%/0%", "weather": "小雨", "weather_icon": "http://api.k780.com/upload/weather/d/7.gif", "weather_icon1": "http://api.k780.com/upload/weather/n/7.gif", "wind": "北风转西北风", "winp": "<3级", "temp_high": "9", "temp_low": "4", "humi_high": "0", "humi_low": "0", "weatid": "8", "weatid1": "8", "windid": "64", "winpid": "395" }, { "weaid": "40", "days": "2018-02-19", "week": "星期一", "cityno": "pudongxinqu", "citynm": "浦东新区", "cityid": "101020600", "temperature": "7℃/5℃", "humidity": "0%/0%", "weather": "阴转小雨", "weather_icon": "http://api.k780.com/upload/weather/d/2.gif", "weather_icon1": "http://api.k780.com/upload/weather/n/7.gif", "wind": "东北风转无持续风向", "winp": "<3级", "temp_high": "7", "temp_low": "5", "humi_high": "0", "humi_low": "0", "weatid": "3", "weatid1": "8", "windid": "136", "winpid": "395" }];
 Component({
   /**
    * 组件的属性列表
@@ -27,8 +24,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    weatherData: temp,
-    numbers: temp.length,
+    weatherData: [],
+    numbers: '',
     todayDate: '',
     location: '',
     selected: 0,
@@ -45,7 +42,7 @@ Component({
     // cache weaid
     cacheWeaid: -1,
     // 生活 指数
-    lifeIndexData:'',
+    lifeIndexData: '',
 
   },
   ready: function () {
@@ -99,26 +96,76 @@ Component({
       });
 
       getWeather57d((res) => {
-        this.setData({
-          weatherData: res,
-          numbers: res.length,
-        });
 
-        wx.hideLoading();
+        let other = res;
+        other.shift();
 
-        let item = this.data.weatherData[0];
 
-        this.setSelectWeather(item);
+        // this.setData({
+        //   weatherData: res,
+        //   numbers: res.length,
+        // });
+
+        getWeatherToday((today) => {
+          other.unshift(today);
+          let length = other.length;
+
+          this.setData({
+            weatherData: other,
+            numbers: length,
+          });
+
+
+          wx.hideLoading();
+
+          let item = this.data.weatherData[0];
+
+          this.setSelectWeather(item);
+        }, weaid);
+
+       
 
       }, weaid);
     },
 
     setSelectWeather: function (item) {
-      let obj = typeIcon(item.weatid);
+    
+    let  date = new Date();
+    let hour = date.getHours();
+    let path = '';
+
+
+    if(hour<18){
+      if (item.weather_icon){
+        let ps = item.weather_icon.split('/');
+        let imgIndex = ps.pop().split('.')[0];
+        let direc = ps.pop();
+
+        let lastP = ps.join('/') + `/d1/${imgIndex}.png`;
+        path = lastP;
+      }else{
+        let obj = typeIcon(item.weatid);
+        path = `../../../assets/weatherImages/${obj.dPath}`;
+      }
+
+    }else{
+
+      if (item.weather_icon1){
+        let ps = item.weather_icon.split('/');
+        let imgIndex = ps.pop().split('.')[0];
+        let direc = ps.pop();
+
+        let lastP = ps.join('/') + `/d1/${imgIndex}.png`;
+        path = lastP;
+      }else{
+        let obj = typeIcon(item.weatid);
+        path = `../../../assets/weatherImages/${obj.nPath}`;
+      }
+    }
 
       this.setData({
         selectedData: item,
-        typePath: `../../../assets/weatherImages/${obj.nPath}`,
+        typePath: path,
       });
 
       if (this.data.cacheWeaid == item.weaid) {
@@ -133,9 +180,9 @@ Component({
         console.log(result);
       }, item.weaid);
 
-      getWeatherLifeindex((result)=>{
+      getWeatherLifeindex((result) => {
         console.log(result);
-      },item.weaid);
+      }, item.weaid);
 
 
 
@@ -200,7 +247,7 @@ Component({
       this.triggerEvent('search', e.detail);
     },
     // 搜索结果点击
-    searchItemTap:function(e){
+    searchItemTap: function (e) {
 
       let index = e.currentTarget.dataset.index;
       let item = this.data.searchResult[index];
@@ -212,7 +259,7 @@ Component({
       });
       // 清空 搜索 框
       this.setData({
-        searchWord:'',
+        searchWord: '',
       });
 
       // 重置 天气 list index
@@ -220,7 +267,7 @@ Component({
         selected: 0,
       });
       this.getWeather(item.weaid);
-      console.log(index,item);
+      console.log(index, item);
     }
 
   },

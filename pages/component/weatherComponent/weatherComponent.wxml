@@ -4,7 +4,7 @@
     <!-- <text>{{days}} </text> -->
     <text>{{week}}</text>
     <text>{{temperature}}</text>
-    <text>{{weather}}</text>
+    <text>{{weather_curr || weather}}</text>
     <!-- <text>{{winp}}</text>  -->
   </view>
 </template>
@@ -22,14 +22,19 @@
     </view>
 
     <view class='one-part'>
-      <text>{{temperature}}</text>
-      <text>{{weather}}</text>
+      <text> {{temperature_curr?'当前温度':''}}{{temperature_curr || temperature}}</text>
+      <text>{{weather_curr || weather}}</text>
     </view>
 
     <view class='one-part'>
       <text>{{wind}}</text>
       <text>{{winp}}</text>
     </view>
+    <view class='one-part' wx:if='{{humidity != "0%/0%"}}'>
+      <text>湿度</text>
+      <text>{{humidity}}</text>
+    </view>
+
   </view>
 </template>
 
@@ -68,11 +73,9 @@
 
 
   <!--搜索列表  -->
-  <view wx:if='{{searchResult.length>0}}' class='search-result'>
+  <scroll-view wx:if='{{searchResult.length>0}}' class='search-result' scroll-y>
     <template is='searechdata' wx:for='{{searchResult}}' wx:key='{{index}}' data='{{...item,index:index}}'>
     </template>
-  </view>
-
-
+  </scroll-view>
 
 </view>

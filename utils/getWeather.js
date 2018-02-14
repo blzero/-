@@ -4,6 +4,7 @@ const apiKey = require('../config/nowapiKey.js');
 
 const  weaid = 36;//上海
 
+const baseUrl = 'https://sapi.k780.com/';
 const  temp = {
   appkey: apiKey.AppKey,
   sign: apiKey.Sign,
@@ -15,7 +16,7 @@ var getWeather = {
 //1. 5-7天 天气预报
   getWeather57d: function (result, place = weaid) {
     http({
-      url: 'https://sapi.k780.com/',
+      url: baseUrl,
       data: Object.assign({
         app: 'weather.future',
         weaid: place,
@@ -31,12 +32,11 @@ var getWeather = {
   getWeatherType: function (result){
 
     http({
-      url: 'https://sapi.k780.com/',
+      url: baseUrl,
       data: Object.assign({
         app: 'weather.wtype',
       },temp),
       success: (res) => {
-
         result && result(res.result);
       }
     });
@@ -44,7 +44,7 @@ var getWeather = {
   //3. 5-7天 生活指数
   getWeatherLifeindex: function (result, place = weaid){
     http({
-      url: 'https://sapi.k780.com/',
+      url: baseUrl,
       data: Object.assign({
         app: 'weather.lifeindex',
         weaid: place,
@@ -58,7 +58,7 @@ var getWeather = {
   //4.  PM2.5
   getWeatherPM25: function (result, place = weaid){
     http({
-      url: 'https://sapi.k780.com/',
+      url: baseUrl,
       data: Object.assign({
         app: 'weather.pm25',
         weaid: place,
@@ -68,7 +68,21 @@ var getWeather = {
         result && result(res.result);
       }
     });
-  }
+  },
+  //今天  天气
+  getWeatherToday:function(result,place = weaid){
+    http({
+      url: baseUrl,
+      data: Object.assign({
+        app: 'weather.today',
+        weaid: place,
+      }, temp),
+      success: (res) => {
+
+        result && result(res.result);
+      }
+    });
+  },
 
 }
 
