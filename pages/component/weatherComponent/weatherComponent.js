@@ -49,13 +49,13 @@ Component({
     lifeIndexData: '',
 
   },
-  ready: function () {
-
-    this.getToday();
-
-    this.getLocation();
-
+  lifetimes: {
+    ready() {
+      this.getToday();
+      this.getLocation();
+    }
   },
+ 
 
 
   /**
@@ -64,7 +64,7 @@ Component({
   methods: {
 
     //显示隐藏 天气列表
-    showHide: function () {
+    showHide() {
       var animation = wx.createAnimation({
         duration: 500,
         timingFunction: 'ease',
@@ -137,7 +137,7 @@ Component({
     let  date = new Date();
     let hour = date.getHours();
     let path = '';
-
+    console.log(hour);
 
     if(hour<18){
       if (item.weather_icon){
@@ -159,7 +159,7 @@ Component({
         let imgIndex = ps.pop().split('.')[0];
         let direc = ps.pop();
 
-        let lastP = ps.join('/') + `/d1/${imgIndex}.png`;
+        let lastP = ps.join('/') + `/n1/${imgIndex}.png`;
         path = lastP;
       }else{
         let obj = typeIcon(item.weatid);

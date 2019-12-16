@@ -10,7 +10,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap() {
     wx.navigateTo({
       url: '../weather'
     })
